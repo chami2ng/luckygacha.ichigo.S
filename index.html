@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#fdf8f3">
+<title>Lucky Gacha! · S의 비밀노트</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#5b4552;--mu:#a98b9a;--mv:#a04d6e;--pk:#cc7f98;--md:#c28a9d}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0}
+body{font-family:Pretendard,'Pretendard Variable','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:var(--ink);line-height:1.7;background:linear-gradient(rgba(170,140,155,.1) 1px,transparent 1px) 0 0/24px 24px,linear-gradient(90deg,rgba(170,140,155,.1) 1px,transparent 1px) 0 0/24px 24px,#fdf8f3}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,a:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--pk);outline-offset:3px}
+.wrap{max-width:460px;margin:0 auto;padding:0 20px 50px}
+.hd{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;padding:18px 0 12px;border-bottom:1px solid #d9c9d1}
+.hd b{font:700 26px Pretendard,'Pretendard Variable','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;letter-spacing:-.02em;color:#6b4658}.hd i{font-size:13px;color:var(--pk);font-style:normal}
+.hd span{font:500 9px/1.5 Pretendard,'Pretendard Variable','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;letter-spacing:.14em;color:var(--mu);text-align:right;max-width:150px}
+.scr{display:none}.scr.on{display:block}
+.mono{font-family:Pretendard,'Pretendard Variable','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif}
+.tg{margin:34px 0 0;text-align:center;font:500 12px Pretendard,'Pretendard Variable','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;letter-spacing:.3em;color:var(--mv)}
+h1{margin:18px 0 22px;text-align:center;font:800 clamp(44px,15vw,62px)/1.05 Pretendard,'Pretendard Variable','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:var(--mv);letter-spacing:-.03em}
+h1 em{display:block;font-weight:400;color:var(--pk)}
+.sub{text-align:center;font-size:16px;margin:0 0 34px}
+.cn{display:flex;align-items:center;justify-content:center;gap:30px}
+#coin{flex:none;width:86px;height:86px;border-radius:50%;border:0;padding:0;background:radial-gradient(circle at 38% 32%,#fbf0b8,#e9cf84);box-shadow:inset 0 0 0 5px #f4e3a2,inset 0 0 0 7px #b8934a,0 7px 0 #c4a257,0 14px 18px -6px #0003;color:#a98340;font-size:34px;transition:.4s;animation:fl 2.4s ease-in-out infinite}
+#coin.got{opacity:.3;animation:none;filter:grayscale(.6)}
+@keyframes fl{50%{transform:translateY(-6px)}}
+.cn p{margin:0;text-align:center;font-size:15px;line-height:1.9}.cn p b{display:block;font-size:17px}
+.stp{display:flex;gap:8px;justify-content:center;margin:34px 0 40px}.stp i{width:80px;height:4px;border-radius:2px;background:#e3d3dc;transition:.3s}.stp i.on{background:var(--mv)}
+.cab{background:#ebbac8;border:3px solid var(--md);border-radius:130px 130px 28px 28px;padding:22px 18px 24px;box-shadow:inset 0 0 0 7px #f8dce5,10px 12px 0 #e5ddd8}
+.sg{background:#fdf3df;border:3px solid var(--md);border-radius:90px 90px 14px 14px;padding:16px 10px 12px;text-align:center;box-shadow:inset 0 0 0 4px #fff}
+.sg b{display:block;font:800 30px/1.2 Pretendard,'Pretendard Variable','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:var(--mv)}
+.sg small{font:500 9.5px Pretendard,'Pretendard Variable','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;letter-spacing:.28em;color:#9a8a8e}
+.gl{width:300px;box-sizing:content-box;margin:18px auto 0;border:10px solid var(--md);border-radius:22px;overflow:hidden}
+#stage{position:relative;width:300px;height:330px;background:linear-gradient(135deg,#f6f2f8,#e9e4f1);overflow:hidden}
+#stage:before{content:"♡     ✦     ♡";white-space:pre;position:absolute;left:0;right:0;top:130px;text-align:center;color:#cfbdd0;font-size:26px}
+#stage:after{content:"";position:absolute;inset:0;z-index:6;pointer-events:none;background:linear-gradient(105deg,transparent 0 12%,#ffffff55 12% 22%,transparent 22% 70%,#ffffff44 70% 78%,transparent 78%)}
+#rail{position:absolute;left:12px;right:12px;top:14px;height:8px;border-radius:4px;background:#bdb0c6}
+#fl{position:absolute;left:0;right:0;bottom:0;height:56px;z-index:1;background:linear-gradient(#d7cbe0 1px,transparent 1px) 0 0/37px 18px,linear-gradient(90deg,#d7cbe0 1px,transparent 1px) 0 0/37px 18px,#f1ebf4}
+#chute{position:absolute;left:20px;bottom:0;width:84px;height:40px;z-index:5;border-radius:40px 40px 0 0;background:#a590ad;box-shadow:inset 0 -8px 0 #8d7896}
+#chute:after{content:"";position:absolute;left:12px;right:12px;top:14px;height:14px;border-radius:8px;background:#7d6a85}
+#rope{position:absolute;top:0;width:2px;background:#9c8ea8;z-index:2}
+#claw{position:absolute;width:40px;height:40px;z-index:4}
+#claw:before{content:"";position:absolute;left:8px;top:0;width:24px;height:12px;border-radius:6px;background:#c3b8cb}
+.a{position:absolute;top:8px;width:5px;height:32px;border-radius:4px;background:#8f8299;transform-origin:top center;transition:transform .3s}
+.a.l{left:7px;transform:rotate(26deg)}.a.r{right:7px;transform:rotate(-26deg)}
+#claw.c .l{transform:rotate(-12deg)}#claw.c .r{transform:rotate(12deg)}
+.ball,.cap{position:absolute;z-index:3;width:40px;height:40px;border-radius:50%;background:radial-gradient(circle at 32% 28%,#fff,#f6f1f8 58%,#d9d0e4);box-shadow:0 0 0 2px #cdb5c9,0 5px 8px -2px #8a6a9a55}
+.ball.p,.cap{background:radial-gradient(circle at 32% 28%,#ffd6e5,#f48fb1 58%,#df6590);box-shadow:0 0 0 2px #b9708a,0 5px 8px -2px #e8789c88}
+.ball:before,.cap:before{content:"♡";position:absolute;inset:0;display:grid;place-items:center;font-size:15px;line-height:1;color:#d9b9c8}
+.ball.p:before,.cap:before{color:#fff}
+.ball:after,.cap:after{content:"";position:absolute;left:8px;top:6px;width:9px;height:6px;border-radius:50%;background:#fffa;transform:rotate(-30deg)}
+.cap{position:relative;animation:pop .5s}
+@keyframes pop{from{transform:translateY(-40px) scale(.4)}}
+.ct{display:flex;align-items:center;justify-content:space-between;margin:24px 4px 0;padding-bottom:22px;border-bottom:1px solid var(--md)}
+.rb{display:flex;gap:10px}
+.rb button{width:58px;height:58px;border-radius:50%;border:0;background:#f4d3dc;color:#a77589;font-size:24px;box-shadow:0 6px 0 #d9a8b8;touch-action:manipulation;user-select:none}
+#gb{width:118px;height:56px;border-radius:50%;border:0;background:#d58fa8;color:#f9e1ea;font:700 16px Pretendard,'Pretendard Variable','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;letter-spacing:.1em;box-shadow:0 7px 0 #b97189;touch-action:manipulation;user-select:none}
+.rb button:active,#gb:active{transform:translateY(4px);box-shadow:none}
+.bt{display:flex;justify-content:space-between;align-items:center;margin-top:22px}
+#prize{width:150px;height:60px;border-radius:12px;background:#916579;box-shadow:0 0 0 6px var(--md);display:flex;align-items:center;justify-content:center;position:relative;margin-left:6px}
+#prize:before{content:"PRIZE OUT";font:500 12px Pretendard,'Pretendard Variable','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;letter-spacing:.3em;color:#e8d0da}
+#prize.has:before{display:none}
+#prize.has{cursor:pointer;box-shadow:0 0 0 6px var(--md),0 0 18px 8px #fff}
+#slot{width:120px;height:64px;border-radius:12px;border:2px solid var(--md);background:#fdf0dc;color:#7a6070;font:500 11px Pretendard,'Pretendard Variable','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;letter-spacing:.14em;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}
+#slot:before{content:"";width:58px;height:12px;border-radius:6px;background:#7d5a6c}
+#slot.pulse{animation:pls 1s infinite}
+@keyframes pls{50%{transform:scale(1.07);background:#fff}}
+#hint{margin:28px 0 4px;text-align:center;color:var(--mv);font-size:15px;min-height:28px}
+#st{text-align:center;font:500 11px Pretendard,'Pretendard Variable','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;letter-spacing:.18em;color:var(--mu)}
+.ft{margin-top:36px;border-top:1px solid #d9c9d1;padding-top:14px;text-align:center;font:500 10px Pretendard,'Pretendard Variable','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;letter-spacing:.2em;color:var(--mu)}
+.ov{position:fixed;inset:0;z-index:30;background:#fdf8f3e6;backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center}
+.ov.on{display:flex}
+.card{width:270px;padding:28px 22px;background:#fff;border:1px solid #e2cdd8;border-radius:20px;text-align:center;box-shadow:8px 10px 0 #eadde4;animation:pop .45s}
+.card .big{font-size:42px;line-height:1;color:var(--pk)}
+.card h3{margin:8px 0 4px;font-size:19px}.card p{margin:0 0 18px;font-size:14px;color:var(--mu)}
+.slip{position:relative;width:236px;padding:30px 18px 26px;background:#fffdf9;border:1px dashed var(--pk);transform:rotate(-3deg);font-size:15px;font-weight:500;line-height:1.7;cursor:pointer;text-align:center;animation:pop .6s;box-shadow:8px 10px 0 #eadde4}
+.slip:before{content:"";position:absolute;top:-12px;left:70px;width:90px;height:24px;background:#dcc8e2cc;transform:rotate(-3deg)}
+.slip b{display:block;font:800 68px/1 Pretendard,'Pretendard Variable','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:var(--mv)}
+.btn{border:0;background:var(--mv);color:#fff;border-radius:999px;padding:12px 30px;font-weight:700;font-size:16px;box-shadow:0 5px 0 #7b3a55}
+.btn:active{transform:translateY(3px);box-shadow:none}
+#note h2{margin:26px 0 18px;font:800 26px Pretendard,'Pretendard Variable','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:var(--mv)}
+.bk{position:relative}
+.rg{position:absolute;left:0;top:50px;bottom:40px;width:30px;z-index:2;background:repeating-linear-gradient(#a99aab 0 5px,transparent 5px 73px);pointer-events:none}
+.sh{position:relative;margin-left:14px;padding:31px 22px 31px 56px;background:repeating-linear-gradient(transparent 0 30px,#eadbe3 30px 31px),#fffdf9;border:1px solid #e2cdd8;border-radius:10px 26px 26px 10px;box-shadow:8px 10px 0 #eadde4;min-height:520px;text-align:left;font-size:15px;line-height:31px;animation:pg .4s}
+@keyframes pg{from{opacity:0;transform:translateX(20px)}}
+.sh:before{content:"";position:absolute;left:38px;top:0;bottom:0;width:2px;background:#ecd0dc}
+.sh:after{content:"";position:absolute;top:-16px;right:50px;width:100px;height:30px;transform:rotate(3deg);background:#dcc8e2cc}
+.lb{font:500 12px/31px Pretendard,'Pretendard Variable','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;letter-spacing:.3em;color:#b99aae}
+.sh h3,.sh h4{font:700 20px/31px Pretendard,'Pretendard Variable','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:var(--mv);margin:0}
+.sh h3{margin-top:31px}.sh h4{margin-bottom:31px}
+.sh h5{font:700 17px/31px Pretendard,'Pretendard Variable','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:var(--mv);margin:0}
+.sh p{margin:0 0 31px;word-break:keep-all}
+.sh b{font-weight:700;background:linear-gradient(transparent 62%,#f6d3df 62%)}
+.num{display:inline-block;background:none;color:var(--mv);padding:0;font-size:15px;font-weight:800;margin-right:6px}
+.nav{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:26px}
+.dots{display:flex;gap:8px;margin-top:22px;justify-content:center}.dots i{width:8px;height:8px;border-radius:50%;background:#fff;box-shadow:0 0 0 1px var(--md)}.dots i.on{background:var(--mv)}
+.link{display:block;margin:0 0 16px;padding:12px;text-align:center;line-height:1.5;border-radius:12px;background:#fff;border:1px solid var(--md);color:var(--ink);text-decoration:none;font-weight:700;font-size:15px;word-break:break-all;box-shadow:4px 5px 0 #eadde4}
+.link small{display:block;font-weight:500;font-size:13px;color:var(--mv)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hd"><b>lucky gacha <i>♡</i></b><span>A LITTLE LUCK, A NEW CONNECTION</span></header>
+
+<section id="main" class="scr on">
+  <p class="tg">✦ ONE COIN, ONE SPECIAL GIRL ✦</p>
+  <h1>welcome<em>lucky gacha!</em></h1>
+  <p class="sub">그냥 지나치기엔, 조금 특별한 뽑기.<br>오늘의 행운을 데려가 볼래요?</p>
+  <div class="cn"><button id="coin" aria-label="무료 코인 받기">♡</button><p id="cm"><b>코인 하나, 무료로 드려요!</b>코인을 눌러 받은 뒤<br>기계의 코인 투입구를 눌러 주세요.</p></div>
+  <div class="stp"><i class="on"></i><i></i><i></i></div>
+  <div class="cab">
+    <div class="sg"><b>LUCKY GACHA</b><small>♡ EVERY ENCOUNTER IS A PRIZE ♡</small></div>
+    <div class="gl"><div id="stage"><div id="rail"></div><div id="fl"></div><div id="chute"></div><div id="rope"></div><div id="claw"><i class="a l"></i><i class="a r"></i></div><div id="balls"></div></div></div>
+    <div class="ct"><div class="rb"><button data-k="l" aria-label="왼쪽">←</button><button data-k="r" aria-label="오른쪽">→</button></div><button id="gb" data-k="d">GRAB!</button></div>
+    <div class="bt"><div id="prize" role="button" tabindex="0" aria-label="PRIZE OUT"></div><button id="slot">INSERT COIN</button></div>
+  </div>
+  <div id="hint" aria-live="polite">무료 코인을 받고 시작해 주세요 ♡</div>
+  <div id="st"></div>
+  <div class="ft">LUCKY GACHA CLUB ♡ NOT A TOY. A LITTLE CONNECTION.</div>
+</section>
+
+<section id="note" class="scr">
+  <h2>S의 비밀노트 ♡</h2>
+  <div class="bk"><div class="rg"></div><div class="sh" id="sheet"></div></div>
+  <div class="dots" id="dots"></div>
+  <div class="nav" id="nav"></div>
+</section>
+</div>
+
+<div id="ov" class="ov"><div class="slip" id="slip" role="button" tabindex="0"><b>S</b>S를 뽑았습니다! ♡<br>종이를 눌러 열어보세요</div></div>
+<div id="ov2" class="ov"><div class="card"><div class="big">♡</div><h3>하얀 가챠! 애정 +1</h3><p id="am"></p><button class="btn" id="again">다시 뽑아볼까요?</button></div></div>
+
+<script>
+const $=s=>document.querySelector(s);
+const show=id=>{document.querySelectorAll('.scr').forEach(e=>e.classList.toggle('on',e.id==id));scrollTo(0,0)};
+const hint=t=>$('#hint').textContent=t;
+let coins=0,started=false,aff=0;
+const upd=()=>{$('#st').textContent='COIN '+coins+' · 애정 ♡ '+aff;
+  document.querySelectorAll('.stp i').forEach((e,i)=>e.classList.toggle('on',i<=(started?2:coins?1:0)))};
+upd();
+$('#coin').onclick=()=>{if(coins||started)return;coins=1;$('#coin').classList.add('got');
+  $('#cm').innerHTML='<b>코인을 받았어요 ♡</b>이제 INSERT COIN을 눌러 주세요';
+  $('#slot').classList.add('pulse');hint('기계의 INSERT COIN을 눌러 주세요 ♡');upd()};
+$('#slot').onclick=()=>{if(started)return;
+  if(!coins){hint('무료 코인을 받고 시작해 주세요 ♡');return}
+  coins=0;started=true;$('#slot').classList.remove('pulse');
+  hint('핑크 가챠 1개, 하얀 가챠 3개! ← →로 움직이고 ↓로 집어요');upd()};
+
+const claw=$('#claw'),rope=$('#rope'),bl=$('#balls');
+let cx=150,cy=30,st='idle',held=null,tm=0,last=performance.now(),balls=[];
+const keys={l:0,r:0,d:0},map={ArrowLeft:'l',ArrowRight:'r'};
+const setClosed=v=>claw.classList.toggle('c',v);
+function setup(){
+  bl.innerHTML='';const pi=Math.floor(Math.random()*4);
+  balls=[122,170,218,266].map((x,i)=>{const el=document.createElement('div');el.className='ball'+(i==pi?' p':'');bl.appendChild(el);return{x:x+Math.random()*6-3,y:272,pink:i==pi,el}});
+  held=null;st='idle';cx=150;cy=30;setClosed(false);
+}
+setup();
+addEventListener('keydown',e=>{
+  if(!$('#main').classList.contains('on'))return;
+  if(map[e.key]){keys[map[e.key]]=1;e.preventDefault()}
+  if(e.key=='ArrowDown'||(e.key==' '&&document.activeElement.tagName!='BUTTON')){keys.d=1;e.preventDefault()}
+});
+addEventListener('keyup',e=>{if(map[e.key])keys[map[e.key]]=0});
+document.querySelectorAll('[data-k]').forEach(b=>{const k=b.dataset.k;
+  b.addEventListener('pointerdown',e=>{e.preventDefault();keys[k]=1});
+  ['pointerup','pointerleave','pointercancel'].forEach(n=>b.addEventListener(n,()=>{if(k!='d')keys[k]=0}))});
+function loop(t){
+  const dt=Math.min(.05,(t-last)/1000);last=t;
+  if(started){
+    if(st=='idle'){
+      if(keys.l)cx-=150*dt;if(keys.r)cx+=150*dt;cx=Math.max(20,Math.min(280,cx));
+      if(keys.d){keys.d=0;st='down'}
+    }else if(st=='down'){cy+=170*dt;if(cy>=240){cy=240;st='close';tm=.45;setClosed(true)}}
+    else if(st=='close'){tm-=dt;if(tm<=0){held=balls.find(b=>Math.abs(cx-b.x)<=18)||null;st='up'}}
+    else if(st=='up'){cy-=170*dt;if(cy<=30){cy=30;
+      if(held){st='move';hint('와! 잡았다! 출구로 가는 중 ♡')}
+      else{setClosed(false);st='idle';hint('앗, 아쉬워요! 가챠볼 바로 위에서 다시 ↓ 해봐요 ♡')}}}
+    else if(st=='move'){cx-=120*dt;if(cx<=45){cx=45;held.x=45;held.y=cy+32;setClosed(false);st='fall'}}
+    else if(st=='fall'){held.y+=330*dt;if(held.y>=272){held.y=272;st='end';result(held)}}
+    if(held&&(st=='up'||st=='move')){held.x=cx;held.y=cy+32}
+  }
+  claw.style.left=(cx-20)+'px';claw.style.top=cy+'px';
+  rope.style.left=(cx-1)+'px';rope.style.height=cy+'px';
+  balls.forEach(b=>{b.el.style.left=(b.x-20)+'px';b.el.style.top=b.y+'px'});
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+
+function result(b){
+  b.el.style.display='none';
+  if(b.pink){win();return}
+  aff++;upd();
+  $('#am').textContent='지금 애정 ♡ '+aff+' · 핑크 가챠는 아직 기계 안에 있어요';
+  $('#ov2').classList.add('on');
+}
+$('#again').onclick=()=>{$('#ov2').classList.remove('on');setup();hint('다시 한 번! 이번엔 핑크를 노려봐요 ♡')};
+function win(){
+  hint('핑크 가챠 당첨! PRIZE OUT의 캡슐을 눌러 주세요 ♡');
+  const p=$('#prize');p.innerHTML='<div class="cap"></div>';p.classList.add('has');
+}
+const openSlip=()=>{if($('#prize').classList.contains('has'))$('#ov').classList.add('on')};
+$('#prize').onclick=openSlip;
+$('#prize').onkeydown=e=>{if(e.key=='Enter'||e.key==' ')openSlip()};
+const toNote=()=>{$('#ov').classList.remove('on');page(0);show('note')};
+$('#slip').onclick=toNote;
+$('#slip').onkeydown=e=>{if(e.key=='Enter'||e.key==' ')toNote()};
+
+const pages=[
+`<h3>★ CONGRATULATIONS! ★</h3>
+<h4>S를 뽑았습니다! ♡</h4>
+<p>두구두구... 축하합니다! 오늘의 럭키 가챠에서 여자아이 한 명 당첨 &lt;3</p>
+<p>이름 <b>유선화 or 하야미 유키</b>. 기본 설정 대학생이며 연상동갑연하콤 골고루 장착 완료 ♡ 어른 여자부터 성가신 여자아이까지 롤까지 모두 가능합니다? 단, 친밀도 상승 시 장난기 동반 상승 주의 ᅲuᅲ</p>
+<h5>♡ 캐릭터 상세 정보 열람 中...</h5>
+<p>말풍선 길이 제한 無! 우당탕 우정부터 코찡 그래서 우리 사이 뭐야?ᅲᅲ 싶은 관계까지 전부 해금 가능 &lt;3 개그 욕심도 감정 과몰입도 한가득, 어떤 서사가 나올지는 함께 플레이해 봐야 아는 법 ☆</p>
+<h5>♡ 인연 등록은 여기서!</h5>
+<p>뽑았으면 이제 친해질 차례 아닌가요? ᄒᄒ 진득한 첫만남을 원한다면 익명함에 이름 하나 톡! 5일 이상 부재 시 자리 정리, 재접속은 언제든 환영! 기재 외 장르 및 연락망 문의도 자유롭게 &lt;3</p>
+<p><b>※ 획득한 인연은 오래오래 아껴 주기 ♡</b></p>`,
+`<h3>🎰💌 캡슐 개봉 전 필독!</h3>
+<h4>당첨자 전용 취급 설명서 ♡</h4>
+<p><span class="num">하나</span>@strberry_6계정의 외부 링크에 우리의 대화가 소소한 코멘트와 함께 전시될 수 있음! 뽑기 기계 주인의 수집 욕심으로 소중한 순간들 차곡차곡 보관 中 📁♡ 단, 너무 부끄럽다면 비공개 요청 가능 &lt;3</p>
+<p><span class="num">두울</span>@luvunivu 별도의 당첨 후기 보관함 ♡ 자잘한 일상부터 시답잖은 대화까지 야금야금 수집 中 (아니 근데 이렇게까지 좋아해도 되는 건가...? ᅮ^ᅮ) 가챠 주인의 사심이 다량 함유되어 있으니 열람 시 주의!</p>
+<p><span class="num">세엣</span>본 캡슐은 일회용이 아닌 장기 소장용! 하루 뽑고 잊어버릴 인연보다는 오래오래 서로의 안부를 궁금해할 사람 적극 환영 中 ♡ 물론 보관 기간에 제한 無, 언제든 자유롭게 놓아줄 수 있는 인연을 지향 &lt;3 부담 없이, 마음 가는 만큼만 곁에 두기</p>`,
+`<h3>♡ ALL SET! ♡</h3>
+<h4>동의 감사합니다, 마지막이에요!</h4>
+<a class="link" href="https://lrl.kr/fI8RZ" target="_blank" rel="noopener"><small>관련 문의 사항 접수처</small>https://lrl.kr/fI8RZ</a>
+<a class="link" href="https://lrl.kr/gpaqa" target="_blank" rel="noopener"><small>상품 수령하러 가는 곳</small>https://lrl.kr/gpaqa</a>
+<p style="text-align:center">오래오래 아껴 줄게요 ♡</p>`
+];
+function page(i){
+  const s=$('#sheet');s.style.animation='none';s.offsetHeight;s.style.animation='';
+  s.innerHTML='<div class="lb">SECRET FILE · NO. S / 0'+(i+1)+'</div>'+pages[i];scrollTo(0,0);
+  $('#dots').innerHTML=pages.map((_,k)=>`<i class="${k==i?'on':''}"></i>`).join('');
+  const n=$('#nav');
+  if(i==0)n.innerHTML='<button class="btn">다음 장 ♡</button>';
+  else if(i==1)n.innerHTML='<p style="margin:0;font-weight:500">동의하십니까?</p><button class="btn">동의합니다 ♡</button>';
+  else n.innerHTML='<button class="btn">처음으로</button>';
+  n.querySelector('button').onclick=()=>{if(i==2)location.reload();else page(i+1)};
+}
+</script>
+</body>
+</html>
